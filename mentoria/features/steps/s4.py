@@ -3,13 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
-
-def wait_spinner(driver):
-    while (driver.find_element_by_xpath('/html/body/app-root/ng-http-loader').is_displayed()):
-        pass
-
-def assert_equal():
-    pass
+import time
 
 @given('a user with an administrator profile properly logged in version 1.9.12 of the platform #4')
 def given(context):
@@ -26,7 +20,7 @@ def given(context):
     enter_button = context.driver.find_element_by_id("btnLogin")
     enter_button.click()
 
-    wait_spinner(context.driver)
+    time.sleep(5)
 
 @when('the user clicks the high contrast icon')
 def when(context):

@@ -4,10 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
-
-def wait_spinner(driver):
-    while (driver.find_element_by_xpath('/html/body/app-root/ng-http-loader').is_displayed()):
-        pass
+import time
 
 @given('a user with an administrator profile properly logged in version 1.9.12 of the platform #5 and on the "Users" page')
 def given(context):
@@ -36,7 +33,7 @@ def when(context):
    addUser_btn = Select(context.driver.find_element_by_xpath("/html/body/app-root/app-sidebar-layout/div/div/app-administrator/div/app-users/div/div/app-custom-card/div/div[2]/div/div/div[1]/div/a[1]"))
    addUser_btn.click()
 
-   wait_spinner(context.driver)
+   time.sleep(5)
 
    #excluir usuário manualmente, por enquanto
 
@@ -46,7 +43,7 @@ def when(context):
    phone_field = context.driver.find_element_by_id("phone")
    phone_field.send_keys("85012131415")
 
-   wait_spinner(context.driver)
+   time.sleep(5)
 
    email_field = context.driver.find_element_by_id("email")
    email_field.send_keys("iasmin_ios@hotmail.com")
@@ -57,17 +54,17 @@ def when(context):
    language_field.select_by_value("1: Object")
    #no código da página não mostra os item do select de lingua
 
-   wait_spinner(context.driver)
+   time.sleep(5)
 
    level_field = Select(context.driver.find_element_by_id("profile"))
    level_field.select_by_value("1: Object")
 
-   wait_spinner(context.driver)
+   time.sleep(5)
 
    country_field = Select(context.driver.find_element_by_id("country"))
    country_field.select_by_value("7: Object")
 
-   wait_spinner(context.driver)
+   time.sleep(5)
 
    state_field = Select(context.driver.find_element_by_id("state"))
    state_field.select_by_value("2: Object")
@@ -78,7 +75,7 @@ def when(context):
 
 @then('the system returns a notification of the action s success And show the new user in the user list')
 def then(context):
-    wait_spinner(context.driver)
+    time.sleep(5)
 
     WebDriverWait(context.driver, 15).until(expected_conditions.text_to_be_present_in_element((By.XPATH, "/html/body/app-root/app-sidebar-layout/div/div/app-alert-system/div/div/div[1]"), "User created!"))
 
@@ -90,13 +87,3 @@ def then(context):
 
     WebDriverWait(context.driver, 15).until(expected_conditions.text_to_be_present_in_element((By.XPATH, "/html/body/app-root/app-sidebar-layout/div/div/app-administrator/div/app-users/div/div/app-custom-card/div/div[2]/div/div/div[2]/div[2]/div/table/tbody/tr[1]/td[3]"), "iasmin_ios@hotmail.com"))
     context.driver.quit()
-
-#tem como confirmar se o email foi mandado para o usuário
-
-# o erro de execução do s1 impede a execução dos outro programas
-
-#dúvidas quanto a teoria
-#organização de pastas está certa?
-#detalhes do step
-#do que se trata essa pasta . idea
-#tracinho vermelho

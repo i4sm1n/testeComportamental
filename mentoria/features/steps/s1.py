@@ -51,6 +51,8 @@ def given(context):
 
 @when('the user clicks at + to create a new discussion And duly fill in the required fields')
 def when(context):
+    time.sleep(5)
+
     createDisc_btn = context.driver.find_element_by_id("create")
     createDisc_btn.click()
 
